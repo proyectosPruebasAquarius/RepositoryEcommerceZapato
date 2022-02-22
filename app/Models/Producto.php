@@ -23,6 +23,6 @@ class Producto extends Model
         'id_marca',
         'id_detalle_producto',
         'id_estilo',
-        
+        'id_material'
     ];
 }

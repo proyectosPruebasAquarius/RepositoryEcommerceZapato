@@ -13,6 +13,7 @@ use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\SubCategoria;
 use App\Models\Talla;
+use App\Models\Material;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -41,6 +42,8 @@ class ProductoComponent extends Component
     $categorias = [],
     $categoria,
     $sub_categorias = [],
+    $material,
+    $materiales = [],
     $subcat,
     $oldImg,
     $estado,
@@ -53,6 +56,7 @@ class ProductoComponent extends Component
         'descripcion' => 'required|min:10|max:1500',
         'marca' => 'required',
         'estilo' => 'required',
+        'material' => 'required',
         
 
     ];
@@ -67,7 +71,7 @@ class ProductoComponent extends Component
         'color.required' => 'El color es Obligatorio',
         'talla.required' => 'La Talla es Obligatoria',
         'categoria.required' => 'La Categoria es Obligatoria',
-
+        'material.required' => 'El Material es Obligatorio',
         'proveedor.required' => 'EL Proveedor es Obligatorio',
         'descripcion.required' => 'La descripcion es Obligatoria',
         'descripcion.min' => 'La descripcion debe contener un mínimo de :min caracteres',
@@ -115,7 +119,7 @@ class ProductoComponent extends Component
                 'descripcion' => 'required|min:10|max:1500',
                 'marca' => 'required',
                 'estilo' => 'required',
-
+                'material' => 'required',
             ];
         } else {
 
@@ -130,6 +134,7 @@ class ProductoComponent extends Component
                 'id_proveedor' => $this->proveedor,
                 'id_marca' => $this->marca,
                 'id_estilo' => $this->estilo,
+                'id_materializado' => $this->material
 
             ]);
 
@@ -196,7 +201,7 @@ class ProductoComponent extends Component
                 'descripcion' => 'required|min:10|max:1500',
                 'marca' => 'required',
                 'estilo' => 'required',
-                
+                'material' => 'required',
             ];
         } else {
             $this->rules = [
@@ -227,6 +232,7 @@ class ProductoComponent extends Component
             $producto->id_proveedor = $this->proveedor;
             $producto->id_marca = $this->marca;
             $producto->id_estilo = $this->estilo;
+            $producto->id_material = $this->material;
 
             $detalleProducto = new DetalleProducto;
             $detalleProducto->id_categoria = $this->categoria;
@@ -304,6 +310,7 @@ class ProductoComponent extends Component
 
     public function render()
     {
+        $this->materiales = Material::where('estado', 1)->select('nombre', 'id')->get();
         $this->estilos = Estilo::where('estado', 1)->select('nombre', 'id')->get();
         $this->marcas = Marca::where('estado', 1)->select('nombre', 'id')->get();
         $this->colores = Color::where('estado', 1)->select('nombre', 'id')->get();

@@ -143,6 +143,27 @@
 
                             <div class="col">
                                 <div class="form-group mb-2">
+                                    <label for="estilo">Material</label>
+                                    <select id="estilo" class="form-control" wire:model="material" class="form-control @error('material')
+                                    is-invalid
+                                    @enderror">
+                                        <option selected style="display: none">Selecione el Material</option>
+        
+        
+                                        @forelse ($materiales as $mat)
+                                        <option value="{{ $mat->id }}">{{ $mat->nombre }}</option>
+                                        @empty
+                                        <option>no hay opciones disponibles</option>
+                                        @endforelse
+                                    </select>
+                                    @error('material') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+
+
+
+                            <div class="col">
+                                <div class="form-group mb-2">
                                     <label for="estilo">Estilo</label>
                                     <select id="estilo" class="form-control" wire:model="estilo" class="form-control @error('estilo')
                                     is-invalid

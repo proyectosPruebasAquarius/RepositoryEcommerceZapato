@@ -9,7 +9,7 @@
     <div class="col-12">
       <h2 class="mb-2 page-title">Listado de Materiales</h2>
       <div class="col-12 d-flex justify-content-end mt-3">
-          @livewire('backend.marca-component')
+          @livewire('backend.material-component')
         <button type="button" class="btn  btn-primary" data-toggle="modal" data-target="#materialModal">Agregar <i class="fe fe-plus fe-16"></i></button>
       </div>
       
@@ -53,7 +53,7 @@
                       data-toggle="modal" data-target="#materialModal" onclick="Livewire.emit('asignMaterial',@js($m) )">
                         <i class="fe fe-edit fe-16 text-success"  data-toggle="tooltip" data-placement="top" title="Editar"></i>
                       </button>
-                      <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar"  onclick="trash(@js($m->id_marca))">
+                      <button type="button" class="btn" data-toggle="tooltip" data-placement="top" title="Eliminar"  onclick="trash(@js($m->id_material))">
                         <i class="fe fe-trash fe-16 text-danger"></i>
                       </button>
                     </td>
@@ -78,7 +78,7 @@
 <script>
     let trash = (id) => {
         Swal.fire({
-            title: '¿Estás seguro que desea desactivar esta Marca?',
+            title: '¿Estás seguro que desea desactivar este Material?',
            // text: "¡Está acción es irreversible!",
             icon: 'warning',
             showCancelButton: true,
@@ -88,7 +88,7 @@
             cancelButtonText: 'Cancelar'
             }).then((result) => {
             if (result.isConfirmed) {
-                Livewire.emit('dropByStateMarca', id)
+                Livewire.emit('dropByStateMaterial', id)
             }
         })
     }
@@ -105,18 +105,9 @@
                     "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
                 },
                
-            });
-            
-
-    
-
-
-
+            });              
 } );
-
-
 </script>
-
 @endpush
 
 @push('styles')

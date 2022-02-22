@@ -42,6 +42,7 @@ Route::prefix('administracion')->group(function () {
     Route::get('/ventas','IndexBackendController@indexVenta');
     Route::get('/pedidos','IndexBackendController@indexPedido');
     Route::get('/banners','IndexBackendController@indexBanner');
+    Route::get('/materiales','IndexBackendController@indexMaterial');
     
 });
 /*End Backend */

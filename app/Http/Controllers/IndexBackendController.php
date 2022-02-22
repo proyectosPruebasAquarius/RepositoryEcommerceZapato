@@ -17,6 +17,7 @@ use App\Models\Talla;
 use App\Models\Venta;
 use App\Models\PedidoProveedor;
 use App\Models\Banner;
+use App\Models\Material;
 use Illuminate\Support\Facades\Crypt;
 use DB;
 
@@ -28,6 +29,14 @@ class IndexBackendController extends Controller
         $categorias = Categoria::select('nombre', 'id as id_categoria', 'estado')->get();
 
         return view('backend.categorias')->with('categorias', $categorias);
+    }
+
+
+    public function indexMaterial()
+    {
+        $materiales = Material::select('nombre', 'id as id_material', 'estado')->get();
+
+        return view('backend.materiales')->with('materiales', $materiales);
     }
 
     public function indexSub()
