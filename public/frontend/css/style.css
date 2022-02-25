@@ -10826,6 +10826,11 @@ h1, h2, h3, h4, h5,
 
 .side ul li {
   font-size: 14px;
+  cursor: pointer;
+}
+
+.side ul li a.active {
+  color: #c2185b;
 }
 
 .side ul, .side ul li {
@@ -10837,13 +10842,14 @@ h1, h2, h3, h4, h5,
 .block-26 {
   display: block;
   float: left;
-  width: 100%;
+  width: 100%;  
 }
 
 .block-26 ul, .block-26 ul li {
   padding: 0;
   margin: 0;
   list-style: none;
+  cursor: pointer;
 }
 
 .block-26 ul li {
@@ -10941,7 +10947,8 @@ h1, h2, h3, h4, h5,
 }
 
 .product-detail-wrap .product-desc .price .rate i {
-  color: #616161;
+  color: #ffc107;
+  /*  color: #616161; */
 }
 
 .product-detail-wrap .product-desc .btn-addtocart i {
@@ -12641,3 +12648,199 @@ float: left;
   border: none;
   width: 100%
 }
+
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spinner-border {
+  position: relative;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  text-indent: -999em;
+  vertical-align: text-bottom;
+  border: 0.25em solid;
+  border-color: currentColor transparent currentColor currentColor;
+  border-radius: 50%;
+  animation-name: spinner-border;
+  animation-duration: 0.75s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.spinner-border-reverse {
+  border-color: transparent currentColor transparent transparent;
+}
+.spinner-border-reverse::after {
+  position: absolute;
+  top: -0.25em;
+  right: -0.25em;
+  bottom: -0.25em;
+  left: -0.25em;
+  display: inline-block;
+  content: "";
+  border: 0.25em solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}
+.spinner-border-sm.spinner-border-reverse::after {
+  border-width: 0.2em;
+}
+
+@keyframes spinner-grow {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+.spinner-grow {
+  position: relative;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  text-indent: -999em;
+  vertical-align: text-bottom;
+  background-color: currentColor;
+  border-radius: 50%;
+  animation-name: spinner-grow;
+  animation-duration: 0.75s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.spinner-grow-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+.size-wrap ul li.active {
+  background: #000;
+  color: #fff;
+}
+
+.color-wrap ul li.active {
+  /* filter: drop-shadow(16px 16px 20px blue); */
+  box-shadow: 0px 0px 17px 5px rgba(0,0,0,0.68);
+-webkit-box-shadow: 0px 0px 17px 5px rgba(0,0,0,0.68);
+-moz-box-shadow: 0px 0px 17px 5px rgba(0,0,0,0.68);
+}
+
+.offcanvas-active{
+	overflow:hidden;
+}
+
+.screen-overlay {
+  width:0%;
+  height: 100%;
+  z-index: 30;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity:0;
+  visibility:hidden;
+  background-color: rgba(34, 34, 34, 0.6);
+  transition:opacity .2s linear, visibility .1s, width 1s ease-in;
+   }
+.screen-overlay.show {
+    transition:opacity .5s ease, width 0s;
+    opacity:1;
+    width:100%;
+    visibility:visible;
+}
+
+.offcanvas-product{
+	width:350px;
+	visibility: hidden;
+	transform:translateX(-100%);
+	transition:all .2s;
+  border-radius:0; 
+  box-shadow: 0 5px 10px rgba(0,0,0, .2);
+	display:block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 1200;
+  background-color: #fff;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.offcanvas-product.offcanvas-right {
+   right: 0;
+   left: auto;
+   transform: translateX(100%); 
+ }
+
+.offcanvas-product.show{
+	visibility: visible;
+    transform: translateX(0);
+    transition: transform .2s;
+}
+
+.offcanvas-product .btn-close{ position: absolute; right:15px; top:15px; }
+
+.pro-qty-2 input {
+  text-align: center;
+  width: 50%;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  /* margin: 0; */
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.total-wrap .total.sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+/* body { padding-top: 70px; } */
+/* .product-detail-wrap .product-desc .btn-addtocart {
+  -webkit-animation-name: bounce;
+  -webkit-animation-duration: 25s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-delay: 0s;
+}
+
+@-webkit-keyframes bounce {
+  0% {
+transform: scale(1,1) translate(0px, 0px);
+}
+
+30%{
+transform: scale(1,0.8) translate(0px, 10px); 
+}
+
+75%{
+transform: scale(1,1.1) translate(0px, -25px); 
+}
+
+100% {
+transform: scale(1,1) translate(0px, 0px);
+}
+} */

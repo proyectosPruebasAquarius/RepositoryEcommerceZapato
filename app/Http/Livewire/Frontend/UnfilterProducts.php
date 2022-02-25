@@ -12,7 +12,7 @@ use App\Models\Categoria;
 use App\Models\SubCategoria;
 use App\Models\Estilo;
 
-class Grids extends Component
+class UnfilterProducts extends Component
 {
     /* public $categoria;
     public $sub_categoria; */
@@ -39,7 +39,7 @@ class Grids extends Component
     public $style;
 
     protected $listeners = ['reload-img' => '$refresh'];
-    protected $queryString = ['search'/* , 'categoria', 'sub_categoria' */];
+    protected $queryString = ['search', 'categoria', 'sub_categoria'];
 
     public function filterByColor($color)
     {
@@ -89,38 +89,37 @@ class Grids extends Component
 
     public function filterByCategoria($category)
     {
-        /* if ($category == $this->categoria) { */
-            /* $this->reset(['categoria', 'sub_categoria']); */
-            redirect()->route('product.views', $category);
+        if ($category == $this->categoria) {
+            $this->reset(['categoria', 'sub_categoria']);
+            /* redirect()->route('product.views', $category); */
             /* if (!empty($this->sub_categoria)) {
                 
             }  */          
-        /* } else {            
+        } else {            
             $this->categoria = $category;
         }
-        $this->resetPage(); */
+        $this->resetPage();
     }
 
     public function filterBySubCategoria($subCategory)
     {
-        /* if ($subCategory == $this->sub_categoria) {
+        if ($subCategory == $this->sub_categoria) {
             $this->reset('sub_categoria');            
         } else {            
             $this->sub_categoria = $subCategory;
         }
-        $this->resetPage(); */
-        redirect()->route('product.filter', [$this->categoria, $subCategory]);
+        $this->resetPage();
+        /* redirect()->route('product.filter', [$this->categoria, $subCategory]); */
     }
 
     public function filterByStyle($style)
     {
-        /* if ($style == $this->style) {
+        if ($style == $this->style) {
             $this->reset('style');            
         } else {            
             $this->style = $style;
         }
-        $this->resetPage(); */
-        redirect()->route('product.filter', [$this->categoria, $style]);
+        $this->resetPage();
     }
 
     public function updatingSearch()
@@ -158,12 +157,7 @@ class Grids extends Component
 
     public function mount()
     {
-        /* \Debugbar::info(strpos($this->sub_categoria, '+')); */
-        if (strpos($this->sub_categoria, '+')) {
-            \Debugbar::info(str_replace('+', ' ', $this->sub_categoria));
-            str_replace('+', ' ', $this->sub_categoria);            
-        }
-        $this->corroborate($this->sub_categoria);
+               
         if (session()->has('search')) {
             $this->search = session('search');
         }
@@ -248,7 +242,7 @@ class Grids extends Component
         ->when($style, function ($query) use ($style) { 
             $query->where('estilos.nombre', $style);
         })
-        ->select('inventarios.*', 'productos.nombre', 'productos.imagen', 'productos.descripcion')
+        ->select('inventarios.*', 'productos.nombre', 'productos.imagen', 'productos.descripcion', 'categorias.nombre as categoria', 'sub_categorias.nombre as sub_categoria')
         ->where('inventarios.estado', 1)
         ->orderBy($this->sortField, $this->sortDirection)->groupBy('productos.nombre')->paginate($this->pagination);
 
@@ -259,7 +253,7 @@ class Grids extends Component
         $this->sub_categorias = SubCategoria::get(['nombre', 'id']);
         $this->estilos = Estilo::where('estado', 1)->get(['nombre', 'id']);
         $this->dispatchBrowserEvent('reload-select');
-        return view('livewire.frontend.grids', [
+        return view('livewire.frontend.unfilter-products', [
             'inventarios' => $inventarios,
             'actualCount' => count($inventarios),
             'totalCount' => Inventario::where('estado', 1)->count(),

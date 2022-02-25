@@ -51,6 +51,9 @@ class Checkout extends Component
     // Datso usuario
     public $telefono;
 
+    // Mismos datos de envio en facturación
+    public $sameData = false;
+
     protected $rules = [
         //'direccion' => 'required_without_all:id_direccion,recoger_tienda,id_facturacion|string|min:4|max:500',
         'direccion' => 'required_without_all:id_direccion,recoger_tienda,id_facturacion',
@@ -93,6 +96,19 @@ class Checkout extends Component
             default:
                 $this->validateOnly($propertyName);
                 break;
+        }
+    }
+
+    public function updatedSameData($value) {
+        if ($value)
+        {
+            $this->direccionFacturaciones = $this->direccion;
+            $this->referenciaFacturaciones = $this->referencia;
+            $this->departamentoF = $this->departamento;
+            $this->municipiosF = Municipio::where('id_departamento', $this->departamentoF)->get();
+            $this->id_municipioFacturaciones = $this->id_municipio;
+        } else {
+            $this->reset(['direccionFacturaciones', 'referenciaFacturaciones', 'departamentoF', 'municipiosF', 'id_municipioFacturaciones']);
         }
     }
 

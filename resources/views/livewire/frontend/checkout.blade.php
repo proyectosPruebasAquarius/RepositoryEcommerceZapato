@@ -1,5 +1,5 @@
 <div>
-    <section class="checkout spad">
+    <section class="colorlib-product">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -14,10 +14,28 @@
 @endif
                 </div>
             </div>
-            <div class="checkout__form">
+
+            <div class="row row-pb-lg">
+                <div class="col-sm-10 offset-md-1">
+                    <div class="process-wrap">
+                        <div class="process text-center active">
+                            <p><span>01</span></p>
+                            <h3>Carrito de Compras</h3>
+                        </div>
+                        <div class="process text-center active">
+                            <p><span>02</span></p>
+                            <h3>Datos de Envío</h3>
+                        </div>
+                        <div class="process text-center">
+                            <p><span>03</span></p>
+                            <h3>Métodos de Pago</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
                 <div class="row">
-                    <div class="col-12 text-center mx-auto">
-                        <div class="line-connecting"></div>
+                    <div class="col-12 text-center mx-auto">                        
                         <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
                             <li class="nav-item mr-3 black__tab">
                                 <a class="nav-link border" id="carrito-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">
@@ -39,7 +57,7 @@
                 </div>
                 
                 <div class="row">
-                    <form wire:submit.prevent="venta" class="col-lg-8 col-md-6" id="orderForm">
+                    <form wire:submit.prevent="venta" class="col-lg-8 col-md-6 colorlib-form" id="orderForm">
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
                             <div class="tab-pane fade @if ($tab == 'entrega') show active @endif" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -180,122 +198,143 @@
                                         @empty
                                             <div class="row" id="frm">
                                                 <div class="col-12">
-                                                    <h6 class="coupon__code"><span class="icon_tag_alt"></span> ¿Tienes un cupón? <a href="#">Presiona 
+                                                    <h6><span></span> ¿Tienes un cupón? <a href="#">Presiona 
                                                         aquí</a> para ingresar tú código.</h6>
-                                                    <h6 class="checkout__title">Datos personales</h6>
+                                                    <h6>Datos personales</h6>
                                                     <div class="row">
                                                         <div class="col-lg-12">
-                                                            <div class="checkout__input">
-                                                                <p>Teléfono<span>*</span></p>
-                                                                <input type="text" @if (auth()->user()->telefono) value="{{ auth()->user()->telefono }}" @endif wire:model="telefono" @error('telefono') class="invalid" @enderror>
+                                                            <div class="form-group">
+                                                                <label for="tlfFrm">Teléfono<span>*</span></label>
+                                                                <input id="tlfFrm" type="text" @if (auth()->user()->telefono) value="{{ auth()->user()->telefono }}" @endif wire:model="telefono" class="form-control @error('telefono') invalid @enderror">
                                                                 @error('telefono') <span class="error text-danger">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <h6 class="checkout__title">Datos de envío</h6>
+                                                    <h6 class="mt-4">Datos de envío</h6>
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <div class="checkout__input">
-                                                                <p>Dirección de envío<span>*</span></p>
-                                                                <input type="text" wire:model="direccion" @error('direccion') class="invalid" @enderror>
+                                                            <div class="form-group">
+                                                                <label for="telFrm">Dirección de envío<span>*</span></label>
+                                                                <input id="telFrm" type="text" wire:model="direccion" class="form-control @error('direccion') invalid @enderror">
                                                                 @error('direccion') <span class="error text-danger">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <div class="checkout__input">
-                                                                <p>Referencia de envío</p>
-                                                                <input type="text" wire:model="referencia" @error('referencia') class="invalid" @enderror>
+                                                            <div class="form-group">
+                                                                <label for="refFrm">Referencia de envío</label>
+                                                                <input id="refFrm" type="text" wire:model="referencia" class="form-control @error('referencia') invalid @enderror">
                                                                 @error('referencia') <span class="error text-danger">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <div class="checkout__input">
-                                                                <p>Departamento<span>*</span></p>
-                                                                <select class="custom-select expand_select @error('departamento') invalid @enderror" wire:model="departamento">
-                                                                    @forelse ($departamentos as $dp)
-                                                                        @if($loop->first)
-                                                                            <option selected value="" style="display: none;">Seleccione un departamento</option>    
-                                                                        @else
-                                                                            <option value="{{ $dp->id }}">{{ $dp->nombre }}</option>
-                                                                        @endif                                        
-                                                                    @empty
-                                                                    <option>Ocurrió un error, intentelo de nuevo recargando la pagina.</option>
-                                                                    @endforelse
-                                                                </select>
+                                                            <div class="form-group">
+                                                                <label for="dprtFrm">Departamento<span>*</span></label>
+                                                                <div class="form-field">
+                                                                    <i class="icon icon-arrow-down3"></i>
+                                                                    <select id="dprtFrm" class="form-control @error('departamento') invalid @enderror" wire:model="departamento">
+                                                                        @forelse ($departamentos as $dp)
+                                                                            @if($loop->first)
+                                                                                <option selected value="" style="display: none;">Seleccione un departamento</option>    
+                                                                            @else
+                                                                                <option value="{{ $dp->id }}">{{ $dp->nombre }}</option>
+                                                                            @endif                                        
+                                                                        @empty
+                                                                        <option>Ocurrió un error, intentelo de nuevo recargando la pagina.</option>
+                                                                        @endforelse
+                                                                    </select>
+                                                                </div>
                                                                 @error('departamento') <span class="error text-danger">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <div class="checkout__input">
-                                                                <p>Municipio<span>*</span></p>
-                                                                <select class="custom-select expand_select @error('id_municipio') invalid @enderror" wire:model="id_municipio">
-                                                                    @forelse ($municipios as $mp)
-                                                                        @if($loop->first)
-                                                                            <option value="" style="display: none;">Seleccione un municipio</option>    
-                                                                        @else
-                                                                            <option value="{{ $mp->id }}">{{ $mp->nombre }}</option>
-                                                                        @endif                                        
-                                                                    @empty
-                                                                    <option>Seleccione un departamento.</option>
-                                                                    @endforelse
-                                                                </select>
+                                                            <div class="form-group">
+                                                                <label for="mnpFrm">Municipio<span>*</span></label>
+                                                                <div class="form-field">
+                                                                    <i class="icon icon-arrow-down3"></i>
+                                                                    <select id="mnpFrm" class="form-control @error('id_municipio') invalid @enderror" wire:model="id_municipio">
+                                                                        @forelse ($municipios as $mp)
+                                                                            @if($loop->first)
+                                                                                <option value="" style="display: none;">Seleccione un municipio</option>    
+                                                                            @else
+                                                                                <option value="{{ $mp->id }}">{{ $mp->nombre }}</option>
+                                                                            @endif                                        
+                                                                        @empty
+                                                                        <option>Seleccione un departamento.</option>
+                                                                        @endforelse
+                                                                    </select>
+                                                                </div>
                                                                 @error('id_municipio') <span class="error text-danger">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <br>
-                                                    <h6 class="checkout__title">Datos de facturación</h6>   
+                                                    <h6>Datos de facturación</h6>   
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <div class="checkout__input">
-                                                                <p>Dirección de facturación<span>*</span></p>
-                                                                <input type="text" wire:model="direccionFacturaciones" @error('direccionFacturaciones') class="invalid" @enderror>
+                                                            <div class="form-group">
+                                                                <label for="dfFrm">Dirección de facturación<span>*</span></label>
+                                                                <input id="dfFrm" type="text" wire:model="direccionFacturaciones" class="form-control @error('direccionFacturaciones') invalid @enderror">
                                                                 @error('direccionFacturaciones') <span class="error text-danger">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <div class="checkout__input">
-                                                                <p>Referencia de facturación</p>
-                                                                <input type="text" wire:model="referenciaFacturaciones" @error('referenciaFacturaciones') class="invalid" @enderror>
+                                                            <div class="form-group">
+                                                                <label for="refFrmx">Referencia de facturación</label>
+                                                                <input id="refFrmx" type="text" wire:model="referenciaFacturaciones" class="form-control @error('referenciaFacturaciones') invalid @enderror">
                                                                 @error('referenciaFacturaciones') <span class="error text-danger">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <div class="checkout__input">
-                                                                <p>Departamento<span>*</span></p>
-                                                                <select class="custom-select expand_select @error('departamentoF') invalid @enderror" wire:model="departamentoF">
-                                                                    @forelse ($departamentos as $dp)
-                                                                        @if($loop->first)
-                                                                            <option selected value="" style="display: none;">Seleccione un departamento</option>    
-                                                                        @else
-                                                                            <option value="{{ $dp->id }}">{{ $dp->nombre }}</option>
-                                                                        @endif                                        
-                                                                    @empty
-                                                                    <option>Ocurrió un error, intentelo de nuevo recargando la pagina.</option>
-                                                                    @endforelse
-                                                                </select>
+                                                            <div class="form-group">
+                                                                <label for="dprtfFrm">Departamento<span>*</span></label>
+                                                                <div class="form-field">
+                                                                    <i class="icon icon-arrow-down3"></i>
+                                                                    <select id="dprtfFrm" class="form-control @error('departamentoF') invalid @enderror" wire:model="departamentoF">
+                                                                        @forelse ($departamentos as $dp)
+                                                                            @if($loop->first)
+                                                                                <option selected value="" style="display: none;">Seleccione un departamento</option>    
+                                                                            @else
+                                                                                <option value="{{ $dp->id }}">{{ $dp->nombre }}</option>
+                                                                            @endif                                        
+                                                                        @empty
+                                                                        <option>Ocurrió un error, intentelo de nuevo recargando la pagina.</option>
+                                                                        @endforelse
+                                                                    </select>
+                                                                </div>
                                                                 @error('departamentoF') <span class="error text-danger">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <div class="checkout__input">
-                                                                <p>Municipio<span>*</span></p>
-                                                                <select class="custom-select expand_select @error('id_municipioFacturaciones') invalid @enderror" wire:model="id_municipioFacturaciones">
-                                                                    @forelse ($municipiosF as $mp)
-                                                                        @if($loop->first)
-                                                                            <option value="" style="display: none;">Seleccione un municipio</option>    
-                                                                        @else
-                                                                            <option value="{{ $mp->id }}">{{ $mp->nombre }}</option>
-                                                                        @endif                                        
-                                                                    @empty
-                                                                    <option>Seleccione un departamento.</option>
-                                                                    @endforelse
-                                                                </select>
+                                                            <div class="form-group">
+                                                                <label for="mnpfFrm">Municipio<span>*</span></label>
+                                                                <div class="form-field">
+                                                                    <i class="icon icon-arrow-down3"></i>
+                                                                    <select id="mnpfFrm" class="form-control @error('id_municipioFacturaciones') invalid @enderror" wire:model="id_municipioFacturaciones">
+                                                                        @forelse ($municipiosF as $mp)
+                                                                            @if($loop->first)
+                                                                                <option value="" style="display: none;">Seleccione un municipio</option>    
+                                                                            @else
+                                                                                <option value="{{ $mp->id }}">{{ $mp->nombre }}</option>
+                                                                            @endif                                        
+                                                                        @empty
+                                                                        <option>Seleccione un departamento.</option>
+                                                                        @endforelse
+                                                                    </select>
+                                                                </div>
                                                                 @error('id_municipioFacturaciones') <span class="error text-danger">{{ $message }}</span> @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="radio">
+                                                                  <label><input type="checkbox" name="optradio" value="1" wire:model="sameData"> ¿Usar los mismos datos de envío? </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>                                                    
@@ -368,9 +407,9 @@
                                                         <h5 class="text-center mt-3">Número de {{ strtolower($pago->nombre) == 'chivo wallet' ? 'BTC' : 'cuenta' }} {{ $pago->nombre }}</h5><br>
                                                         <h5 class="text-danger text-center">{{ $pago->numero }}</h5>
                                                         <h5><b>Porfavor, adjunte una captura de pantalla, donde se muestre una imagen legible del comprobante de trasacción, proveído por {{ strtolower($pago->nombre) == 'chivo wallet' ? 'chivo wallet' : 'su banco' }}.</b></h5>
-                                                        <div class="checkout__input">
-                                                            <p>Número de Trasacción<span>*</span></p>
-                                                            <input type="text" wire:model="numero" @error('numero') class="invalid" @enderror>
+                                                        <div class="form-group">
+                                                            <label for="mtd{{ $loop->index }}">Número de Trasacción<span>*</span></label>
+                                                            <input id="mtd{{ $loop->index }}" type="text" wire:model="numero" class="form-control @error('numero') invalid @enderror">
                                                             @error('numero') <span class="error text-danger">{{ $message }}</span> @enderror
                                                         </div>
                                                     </div>
@@ -393,49 +432,23 @@
                     </form>
                     
                     <div class="col-lg-4 col-md-6">
-                        <div class="checkout__order sticky-top">
-                            <h4 class="order__title">Tú Orden</h4>
-                            <div class="checkout__order__products">Product <span>Total</span></div>
-                            <ul class="checkout__total__products">                                
+                        <div class="cart-detail sticky-top">
+                            <h2>Tú Orden</h2>
+                            {{-- <div class="checkout__order__products">Product <span>Total</span></div> --}}
+                            <ul>                                
                                 @forelse ($cart as $c)
-                                    <li>{{ '0'.$countCart++ }}. {{ $c['name']. ' x '.$c['quantity'] }} <span>$ {{ number_format($c['price']*$c['quantity'], 2, '.', '') }}</span></li>
+                                    <li>{{ '0'.$countCart++ }}. {{ $c['name']. ' x '.$c['quantity'] }} $ {{ number_format($c['price']*$c['quantity'], 2, '.', '') }}</li>
+                                    <li><span class="w-100"></span></li>
                                 @empty
-                                    <li>Ocurrió un error, carrito vacio.</li>
+                                    <li><span>Ocurrió un error, carrito vacio.</span></li>
                                 @endforelse
-                                
+                                <li><span>Subtotal</span> <span>${{ \Cart::getSubTotal(); }}</span></li>
+                                <li><span>Total</span> <span>${{ \Cart::getTotal(); }}</span></li>
                             </ul>
-                            <ul class="checkout__total__all">
-                                <li>Subtotal <span>${{ \Cart::getSubTotal(); }}</span></li>
-                                <li>Total <span>${{ \Cart::getTotal(); }}</span></li>
-                            </ul>
-                            {{-- <div class="checkout__input__checkbox">
-                                <label for="acc-or">
-                                    Create an account?
-                                    <input type="checkbox" id="acc-or">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua.</p>
-                            <div class="checkout__input__checkbox">
-                                <label for="payment">
-                                    Check Payment
-                                    <input type="checkbox" id="payment">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="checkout__input__checkbox">
-                                <label for="paypal">
-                                    Paypal
-                                    <input type="checkbox" id="paypal">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div> --}}
-                            <button type="submit" class="site-btn  @if ($tab != 'pago') d-none @endif" form="orderForm">Finalizar Compra</button>
+                            <button type="submit" class="btn  @if ($tab != 'pago') d-none @endif" form="orderForm" wire:loading.attr="disabled" wire:target="venta">Finalizar Compra <div wire:loading wire:target="venta"><div class="spinner-grow text-success"></div></div></button>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>            
         </div>
     </section>
     {{-- Modal Edit Direcciones --}}

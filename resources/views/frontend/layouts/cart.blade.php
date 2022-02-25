@@ -34,154 +34,17 @@
                 </div>
             </div>
         </div>
-        <div class="row row-pb-lg">
-            <div class="col-md-12">
-                <div class="product-name d-flex">
-                    <div class="one-forth text-left px-4">
-                        <span>Detalle del Producto</span>
-                    </div>
-                    <div class="one-eight text-center">
-                        <span>Precio</span>
-                    </div>
-                    <div class="one-eight text-center">
-                        <span>Cantidad</span>
-                    </div>
-                    <div class="one-eight text-center">
-                        <span>Total</span>
-                    </div>
-                    <div class="one-eight text-center px-4">
-                        <span>Remover</span>
-                    </div>
-                </div>
-                <div class="product-cart d-flex">
-                    <div class="one-forth">
-                        <div class="product-img" style="background-image: url(images/item-6.jpg);">
-                        </div>
-                        <div class="display-tc">
-                            <h3>Product Name</h3>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <span class="price">$68.00</span>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <div style="display: flex">
-                                <button class="btn bg-transparent">-</button>
-                                <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="1" min="1" max="100" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';">
-                                <button class="btn bg-transparent">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <span class="price">$120.00</span>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <a href="#" class="closed"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-cart d-flex">
-                    <div class="one-forth">
-                        <div class="product-img" style="background-image: url(images/item-7.jpg);">
-                        </div>
-                        <div class="display-tc">
-                            <h3>Product Name</h3>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <span class="price">$68.00</span>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <form action="#">
-                                <input type="text" name="quantity" class="form-control input-number text-center" value="1" min="1" max="100">
-                            </form>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <span class="price">$120.00</span>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <a href="#" class="closed"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-cart d-flex">
-                    <div class="one-forth">
-                        <div class="product-img" style="background-image: url(images/item-8.jpg);">
-                        </div>
-                        <div class="display-tc">
-                            <h3>Product Name</h3>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <span class="price">$68.00</span>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="1" min="1" max="100">
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <span class="price">$120.00</span>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <a href="#" class="closed"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row row-pb-lg">
-            <div class="col-md-12">
-                <div class="total-wrap">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <form action="#">
-                                <div class="row form-group">
-                                    <div class="col-sm-9">
-                                        <input type="text" name="quantity" class="form-control input-number" placeholder="Your Coupon Number...">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="submit" value="Apply Coupon" class="btn btn-primary">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm-4 text-center">
-                            <div class="total">
-                                <div class="sub">
-                                    <p><span>Subtotal:</span> <span>$200.00</span></p>
-                                    <p><span>Delivery:</span> <span>$0.00</span></p>
-                                    <p><span>Discount:</span> <span>$45.00</span></p>
-                                </div>
-                                <div class="grand-total">
-                                    <p><span><strong>Total:</strong></span> <span>$450.00</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="col-6">
+                    <a href="{{ route('product.unfilter') }}" class="btn btn-primary">Continuar Comprando</a>
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        @livewire('frontend.cart')        
+        {{-- <div class="row">
             <div class="col-sm-8 offset-sm-2 text-center colorlib-heading colorlib-heading-sm">
                 <h2>Related Products</h2>
             </div>
@@ -231,7 +94,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 @endsection

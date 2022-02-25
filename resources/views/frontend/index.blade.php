@@ -12,7 +12,7 @@
     <!-- Animate.css -->
     <link rel="stylesheet" href="{{ asset('frontend/css/animate.css') }}">
     <!-- Icomoon Icon Fonts-->
-    <link rel="stylesheet" href="{{ asset('frontend/css/icomoon.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/css/icomoon.css') }}"> --}}
     <!-- Ion Icon Fonts-->
     <link rel="stylesheet" href="{{ asset('frontend/css/ionicons.min.css') }}">
     <!-- Bootstrap  -->
@@ -35,6 +35,10 @@
 
     <!-- Theme style  -->
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('frontend/css/ratingStart.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('frontend/css/perfect-scrollbar.css') }}">
 
     <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
     @livewireStyles
@@ -85,6 +89,7 @@
     <!-- Main -->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('frontend/js/perfect-scrollbar.min.js') }}"></script>
+        
     @stack('scripts')
 </body>
 

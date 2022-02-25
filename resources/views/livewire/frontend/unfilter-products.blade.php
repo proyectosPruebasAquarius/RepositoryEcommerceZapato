@@ -21,7 +21,7 @@
                                             <div class="side border mb-1">
                                                 <h3>Buscar</h3>
                                                 <ul>
-                                                    <li><input type="search" name="" id="" class="form-control rounded" placeholder="Buscar..." wire:model="search"></li>
+                                                    <li><input type="search" name="" id="" class="form-control rounded" placeholder="Buscar..." wire:model.lazy="search"></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -42,31 +42,33 @@
                                             </div>
                                         </div>
                 
-                                        <div class="col-sm-12">
-                                            <div class="side border mb-1">
-                                                <h3>Sub Categoria</h3>
-                                                <ul>
-                                                    @forelse ($sub_categorias as $sub)
-                                                        @php
-                                                            $count = \DB::table('productos')
-                                                            ->join('detalles_productos', 'productos.id_detalle_producto', '=', 'detalles_productos.id')
-                                                            ->join('categorias', 'detalles_productos.id_categoria', '=', 'categorias.id')
-                                                            ->where([
-                                                                ['detalles_productos.id_sub_categoria', $sub->id],
-                                                                ['categorias.nombre', $categoria]
-                                                            ])
-                                                            ->count();
-                                                        @endphp
-                
-                                                        @if($count)
-                                                            <li><a type="button" wire:click="filterBySubCategoria(@js($sub->nombre))" @if ($sub->nombre == $sub_categoria) class="active" @endif>{{ $sub->nombre }} ({{ $count }})</a></li>
-                                                        @endif
-                                                    @empty
-                                                        
-                                                    @endforelse
-                                                </ul>
+                                        @if(!empty($categoria))
+                                            <div class="col-sm-12">
+                                                <div class="side border mb-1">
+                                                    <h3>Sub Categoria</h3>
+                                                    <ul>
+                                                        @forelse ($sub_categorias as $sub)
+                                                            @php
+                                                                $count = \DB::table('productos')
+                                                                ->join('detalles_productos', 'productos.id_detalle_producto', '=', 'detalles_productos.id')
+                                                                ->join('categorias', 'detalles_productos.id_categoria', '=', 'categorias.id')
+                                                                ->where([
+                                                                    ['detalles_productos.id_sub_categoria', $sub->id],
+                                                                    ['categorias.nombre', $categoria]
+                                                                ])
+                                                                ->count();
+                                                            @endphp
+                    
+                                                            @if($count)
+                                                                <li><a type="button" wire:click="filterBySubCategoria(@js($sub->nombre))" @if ($sub->nombre == $sub_categoria) class="active" @endif>{{ $sub->nombre }} ({{ $count }})</a></li>
+                                                            @endif
+                                                        @empty
+                                                            
+                                                        @endforelse
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                 
                                         <div class="col-sm-12">
                                             <div class="side border mb-1">
@@ -174,31 +176,33 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 d-none d-md-block">
-                            <div class="side border mb-1">
-                                <h3>Sub Categoria</h3>
-                                <ul>
-                                    @forelse ($sub_categorias as $sub)
-                                        @php
-                                            $count = \DB::table('productos')
-                                            ->join('detalles_productos', 'productos.id_detalle_producto', '=', 'detalles_productos.id')
-                                            ->join('categorias', 'detalles_productos.id_categoria', '=', 'categorias.id')
-                                            ->where([
-                                                ['detalles_productos.id_sub_categoria', $sub->id],
-                                                ['categorias.nombre', $categoria]
-                                            ])
-                                            ->count();
-                                        @endphp
+                        @if(!empty($categoria))
+                            <div class="col-sm-12 d-none d-md-block">
+                                <div class="side border mb-1">
+                                    <h3>Sub Categoria</h3>
+                                    <ul>
+                                        @forelse ($sub_categorias as $sub)
+                                            @php
+                                                $count = \DB::table('productos')
+                                                ->join('detalles_productos', 'productos.id_detalle_producto', '=', 'detalles_productos.id')
+                                                ->join('categorias', 'detalles_productos.id_categoria', '=', 'categorias.id')
+                                                ->where([
+                                                    ['detalles_productos.id_sub_categoria', $sub->id],
+                                                    ['categorias.nombre', $categoria]
+                                                ])
+                                                ->count();
+                                            @endphp
 
-                                        @if($count)
-                                            <li><a type="button" wire:click="filterBySubCategoria(@js($sub->nombre))" @if ($sub->nombre == $sub_categoria) class="active" @endif>{{ $sub->nombre }} ({{ $count }})</a></li>
-                                        @endif
-                                    @empty
-                                        
-                                    @endforelse
-                                </ul>
+                                            @if($count)
+                                                <li><a type="button" wire:click="filterBySubCategoria(@js($sub->nombre))" @if ($sub->nombre == $sub_categoria) class="active" @endif>{{ $sub->nombre }} ({{ $count }})</a></li>
+                                            @endif
+                                        @empty
+                                            
+                                        @endforelse
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="col-sm-12 d-none d-md-block">
                             <div class="side border mb-1">
@@ -288,18 +292,18 @@
                 </div>
                 <div class="col-lg-9 col-xl-9">
                     <div class="row row-pb-md">        
-                        @php
+                       {{--  @php
                             $isEmpty;
                             if ($sub_categoria) {
                                 $isEmpty = $sub_categoria;
                             } else {
                                 $isEmpty = $style;
                             }
-                        @endphp                
+                        @endphp   --}}              
                         @forelse ($inventarios as $inv)
-                            <div class="col-lg-4 mb-4 text-center" onclick="location.href = @js(route('product.detail', [$categoria, $isEmpty, $inv->nombre]))">
+                            <div class="col-lg-4 mb-4 text-center" onclick="location.href = @js(route('product.detail', [$inv->categoria, $inv->sub_categoria, $inv->nombre]))">
                                 <div class="product-entry border">
-                                    <a href="#" class="prod-img">
+                                    <a href="{{ route('product.detail', [$inv->categoria, $inv->sub_categoria, $inv->nombre]) }}" class="prod-img">
                                         <img src="{{ asset('storage/'. json_decode($inv->imagen)[0]) }}" class="img-fluid" alt="Product Img">
                                     </a>
                                     <div class="desc">

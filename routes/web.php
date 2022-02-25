@@ -16,12 +16,12 @@ use Illuminate\Http\Request;
 */
 
 /* Front */
+
+/* Front */
 Auth::routes(['verify' => true]);
 Route::group(['middleware' => 'isVerfied'], function() { 
 
-    Route::get('/', function () {
-        return view('frontend.layouts.home');
-    });
+    Route::get('/', [App\Http\Controllers\InicioController::class, 'index'])->name('inicio');
     
     Route::get('/sobre-nosotros', function () {
         return view('frontend.layouts.about');
@@ -31,6 +31,19 @@ Route::group(['middleware' => 'isVerfied'], function() {
         return view('frontend.layouts.contact');
     })->name('contact.us');
     
+    Route::get('/productos', function (Request $request) {
+        if (isset($request->search)) {
+            $search = $request->search;
+            session(['search' => $search]);
+        } else {
+            if (session()->has('search')) {
+                session()->forget('search');
+            }
+        }
+        
+        return view('frontend.layouts.unfilter-product');
+    })->name('product.unfilter');
+
     Route::get('/productos/{categoria}', function ($categoria) {
         return view('frontend.layouts.main-product', ['title' => $categoria]);
     })->name('product.views');

@@ -2,9 +2,8 @@
     <div class="container">
         <div class="row row-pb-md">
             <div class="col footer-col colorlib-widget">
-                <h4>About Footwear</h4>
-                <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
-                    unorthographic life</p>
+                <h4>Sobre Nosotros</h4>
+                <p>Tú eslogan</p>
                 <p>
                 <ul class="colorlib-social-icons">
                     <li><a href="#"><i class="icon-twitter"></i></a></li>
@@ -19,12 +18,12 @@
                 <p>
                 <ul class="colorlib-footer-links">
                     <li><a href="{{ route('contact.us') }}">Contactanos</a></li>
-                    <li><a href="#">Returns/Exchange</a></li>
+                    {{-- <li><a href="#">Returns/Exchange</a></li>
                     <li><a href="#">Gift Voucher</a></li>
                     <li><a href="#">Wishlist</a></li>
                     <li><a href="#">Special</a></li>
                     <li><a href="#">Customer Services</a></li>
-                    <li><a href="#">Site maps</a></li>
+                    <li><a href="#">Site maps</a></li> --}}
                 </ul>
                 </p>
             </div>
@@ -33,30 +32,30 @@
                 <p>
                 <ul class="colorlib-footer-links">
                     <li><a href="{{ route('about.us') }}">Sobre Nosotros</a></li>
-                    <li><a href="#">Delivery Information</a></li>
+                    {{-- <li><a href="#">Delivery Information</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Support</a></li>
-                    <li><a href="#">Order Tracking</a></li>
+                    <li><a href="#">Order Tracking</a></li> --}}
                 </ul>
                 </p>
             </div>
 
-            <div class="col footer-col">
+            {{-- <div class="col footer-col">
                 <h4>News</h4>
                 <ul class="colorlib-footer-links">
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="#">Press</a></li>
                     <li><a href="#">Exhibitions</a></li>
                 </ul>
-            </div>
+            </div> --}}
 
             <div class="col footer-col">
-                <h4>Contact Information</h4>
+                <h4>Información de Contacto</h4>
                 <ul class="colorlib-footer-links">
-                    <li>291 South 21th Street, <br> Suite 721 New York NY 10016</li>
-                    <li><a href="tel://1234567920">+ 1235 2355 98</a></li>
-                    <li><a href="mailto:info@yoursite.com">info@yoursite.com</a></li>
-                    <li><a href="#">yoursite.com</a></li>
+                    <li>4a Calle Oriente, <br> Chalatenango, Chalatenango</li>
+                    <li><a href="tel://1234567920">+ (503) 22222222</a></li>
+                    <li><a href="mailto:info@yoursite.com">info@tusitio.com</a></li>
+                    <li><a href="#">tusitio.com</a></li>
                 </ul>
             </div>
         </div>

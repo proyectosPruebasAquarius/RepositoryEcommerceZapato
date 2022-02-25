@@ -143,7 +143,7 @@
                                         <div class="card text-center w-auto border-0">                                  
                                             <div class="card-body">
                                                 <h4 class="card-title text-danger">
-                                                    <button class="btn btn-default link"type="button" href="{{ route('details', $valoracion->nombre) }}" onclick="location.href='{{ route('details', $valoracion->nombre)}}'">{{ $valoracion->nombre }}</button>
+                                                    <button class="btn btn-default link"type="button" href="{{ route('product.detail', [$valoracion->categoria, $valoracion->sub_categoria, $valoracion->nombre]) }}" onclick="location.href='{{ route('product.detail', [$valoracion->categoria, $valoracion->sub_categoria, $valoracion->nombre])}}'">{{ $valoracion->nombre }}</button>
                                                     <br>
                                                     <i class="fa @if ($valoracion->rating == 0.5) fa-star-half-o @elseif($valoracion->rating >= 1) fa-star @else fa-star-o @endif"></i>
                                                     <i class="fa @if ($valoracion->rating == 1.5) fa-star-half-o @elseif($valoracion->rating >= 2) fa-star @else fa-star-o @endif"></i>

@@ -300,5 +300,63 @@
 		datePicker();
 	});
 
+	var proQty = $('.pro-qty-2');
+    /* proQty.prepend('<span class="fa fa-angle-left dec qtybtn"></span>');
+    proQty.append('<span class="fa fa-angle-right inc qtybtn"></span>'); */
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        var id = $button.parent().find('input').attr('name');
 
+        if ($button.hasClass('inc')) {
+            if (parseInt(oldValue) < parseInt($button.parent().find('input').attr('max'))) {
+                var newVal = parseFloat(oldValue) + 1;
+            } else {
+                newVal = oldValue;
+            }
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 0) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 0;
+            }
+        }
+        $button.parent().find('input').val(newVal <= 0 ? 1 : newVal);
+        Livewire.emit('updateQty', $button.parent().find('input').val(), id);
+    });
+
+    proQty.on('focusin', 'input', function () {
+        $(this).data('val', $(this).val());
+    });
+
+    proQty.on('change', 'input', function () {
+        /* alert('Please select'+ $(this).val()) */
+        /* console.log($(this).attr('max')); */
+        var prev = $(this).data('val');
+        if(parseInt($(this).val()) <= parseInt( $(this).attr('max'))) {
+            $(this).val($(this).val()  <= 0 ? 1 : $(this).val());
+        } else {
+            $(this).val(parseInt(prev));
+        }
+        Livewire.emit('updateQty',  $(this).val(),  $(this).attr('name'));
+    });
+
+	window.onscroll =  () => {
+            
+		if (location.pathname != '/carrito') {
+			if(window.scrollY > 30){
+				let bar = document.getElementById('navPrincipal');
+				
+				bar.classList.add('bg-white', 'fixed-top')
+				bar.firstElementChild.classList.add('container')
+			}else{
+				let bar = document.getElementById('navPrincipal');
+				bar.classList.remove('bg-white', 'fixed-top')
+				bar.firstElementChild.classList.remove('container')
+			} 
+		}  
+	}              
+					
+	
 }());

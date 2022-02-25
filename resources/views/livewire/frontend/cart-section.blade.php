@@ -1,15 +1,21 @@
 <div>
     <div class="navbar-cart">
         @guest
-            <a href="{{ route('login') }}">Acceder <i class="icon-user"></i></a>
+            <div class="d-inline">
+                <a href="{{ route('login') }}" class="d-inline-block">Acceder <i class="far fa-user"></i></a>
+            </div>
         @else
-            <div class="dropdown d-inline">
+            <div class="dropdown d-block">
                 <a class="dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="icon-user"></i>
+                    @if(auth()->user()->id_tipo_usuario == 1)
+                        <i class="far fa-user-shield"></i>
+                    @else
+                        <i class="fal fa-user"></i>
+                    @endif                    
                 </a>
                 <div class="dropdown-menu p-2" aria-labelledby="dropdownMenu2">
                 @if(auth()->user()->id_tipo_usuario == 1)
-                    <a class="dropdown-item" type="button" href="{{ url('administracion') }}">Administración</a>
+                    <a class="dropdown-item" type="button" href="#">Administración</a>
                 @endif
                 <a class="dropdown-item @if (request()->route()->getName() === 'perfil') active @endif" type="button" href="{{ route('perfil') }}">Perfil</a>                                    
                 <div class="dropdown-divider"></div>
@@ -25,31 +31,32 @@
             </div>
         @endguest
         <div class="cart-items">
-            <a href="javascript:void(0)" class="main-btn d-inline">
-                <i class="icon-shopping-cart"></i>
+            <a href="javascript:void(0)" class="main-btn d-block">
+                <i class="fal fa-shopping-cart"></i>
                 <span class="total-items">{{ Cart::getTotalQuantity()}}</span>
             </a>
 
             <div class="shopping-item">
                 <div class="dropdown-cart-header">
-                    <span>{{ Cart::getTotalQuantity()}} Productos</span>
                     @if(count($cart) > 0)
                         <a href="{{ url('/carrito') }}">Ver Carrito</a>
-                    @endif        
+                    @endif  
+                    <a href="#" disabled><span>{{ Cart::getTotalQuantity()}} Productos</span></a>
+                          
                 </div>
-                <ul class="shopping-list" style="max-height: 280px; overflow-y: auto; position: relative;">
+                <ul class="shopping-list" style="max-height: 280px;  position: relative;">
                     @forelse ($cart as $item)
                         <li>
                             <button class="remove mr-3" title="Remover este producto" wire:click.prevent="removeCart(@js($item['id']))"><i class="fa fa-times"></i></button>
                             <div class="cart-img-head">
-                                <a class="cart-img" href="#"><img src="{{ $item['attributes']['image'] ? asset('storage/'.json_decode($item['attributes']['image'])[0]) : asset('frontend/img/no-picture-frame.svg') }}" alt="#"></a>
+                                <a class="cart-img" href="#"><img class="img-fluid" src="{{ $item['attributes']['image'] ? asset('storage/'.json_decode($item['attributes']['image'])[0]) : asset('frontend/img/no-picture-frame.svg') }}" alt="#"></a>
                             </div>
                             <div class="content text-left">
                                 <h4><a href="{{-- route('details',$item['name']) --}}">
                                     {{ $item['name'] }}</a></h4>
                                 <p class="quantity">{{ $item['quantity'] }}x - <span class="amount">${{ number_format($item['price'], 2, '.', '') }}</span></p>
                                 
-                                <p>Talla: {{ \DB::table('tallas')->where('id', $item['attributes']['size'])->value('nombre') }} - <i class="fa fa-circle" aria-hidden="true" style="color: {{ \DB::table('colores')->where('id', $item['attributes']['color'])->value('color') }}"></i></p>
+                                <p>Talla: {{ \DB::table('tallas')->where('id', $item['attributes']['size'])->value('nombre') }} - <i class="fa fa-circle border border-dark rounded-circle" aria-hidden="true" style="color: {{ \DB::table('colores')->where('id', $item['attributes']['color'])->value('color') }}; background-color: {{ \DB::table('colores')->where('id', $item['attributes']['color'])->value('color') }}"></i></p>
                             </div>
                         </li>
                     @empty

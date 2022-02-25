@@ -4,22 +4,15 @@
 
 @section('content')
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-option">
+    <div class="breadcrumbs">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__text">
-                        <h4>Finalizar Compra</h4>
-                        <div class="breadcrumb__links">
-                            <a href="{{ url('/') }}">Inicio</a>
-                            <a href="{{ route('cart') }}">Carrito</a>
-                            <span>Finalizar Compra</span>
-                        </div>
-                    </div>
+                <div class="col">
+                    <p class="bread"><span><a href="{{ url('/') }}">Inicio</a></span> / <span><a href="{{ route('cart') }}">Carrito</a></span> / <span>Finalizar Compra</span></p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     <!-- Breadcrumb Section End -->
 
     <!-- Checkout Section Begin -->
