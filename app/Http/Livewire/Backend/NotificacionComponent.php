@@ -12,7 +12,7 @@ class NotificacionComponent extends Component
 
     public function render()
     {
-       // $this->noty = auth()->user()->unreadNotifications;
+        $this->noty = auth()->user()->unreadNotifications;
         return view('livewire.backend.notificacion-component');
     }
 }

@@ -15,7 +15,7 @@
                 </a>
                 <div class="dropdown-menu p-2" aria-labelledby="dropdownMenu2">
                 @if(auth()->user()->id_tipo_usuario == 1)
-                    <a class="dropdown-item" type="button" href="#">Administración</a>
+                    <a class="dropdown-item" type="button" href="{{url('administracion')}}">Administración</a>
                 @endif
                 <a class="dropdown-item @if (request()->route()->getName() === 'perfil') active @endif" type="button" href="{{ route('perfil') }}">Perfil</a>                                    
                 <div class="dropdown-divider"></div>

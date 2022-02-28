@@ -7,7 +7,7 @@
     <div class="flexslider">
         <ul class="slides">
             @forelse ($banners as $banner)
-                <li style="background-image: url({{ asset('storage/'. $banner->imagen) }});">
+                <li style="background-image: url({{ asset( $banner->imagen) }});">
                     <div class="overlay"></div>
                     <div class="container-fluid">
                         <div class="row">
